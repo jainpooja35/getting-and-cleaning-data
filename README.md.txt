@@ -4,8 +4,9 @@ This is the Week 4 Assignment of the course.
 
 Assumption : The Samsung data is in your working directory.
 
-The repo contains run_analysis.R that does the following.
+The repo contains :
 
+run_analysis.R that does the following.
 1. Adds the activity and subject to the test and train datasets.
 2. Merges the training and the test sets to create one data set.
 3. Extracts only the measurements on the mean and standard deviation for each measurement.
@@ -14,3 +15,5 @@ The repo contains run_analysis.R that does the following.
 6. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 Please see the attached CodeBook.md for more information on the variables
+
+Week4Assignment.txt is the output from the script in run_analysis.R

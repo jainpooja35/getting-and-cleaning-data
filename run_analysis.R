@@ -15,12 +15,13 @@ setnames(y_train, c("activity"))
 # train data collected for all the features; retain only the mean and std deviation results from the 1st 6 columns
 x_train <- read.table("train\\x_train.txt")
 setnames(x_train, as.character(features))
-x_train <- x_train[, 1:6]
 # read the subject file for the train data
 subject_train <- read.table("train\\subject_train.txt")
 # combine all the separate data frames into one and set column names
 train_data <- cbind(subject_train, y_train, x_train)
-colHeadings <- c("subject", "activity", "meanx", "meany", "meanz", "stdx", "stdy", "stdz")
+colHeadings1 <- c("subject", "activity")
+colHeadings2 <- as.character(features)
+colHeadings <- c(colHeadings1, colHeadings2)
 setnames(train_data, colHeadings)
 
 # do the same for the test data
@@ -28,7 +29,6 @@ y_test <- read.table("test\\y_test.txt")
 setnames(y_test, c("activity"))
 x_test <- read.table("test\\X_test.txt")
 setnames(x_test, as.character(features))
-x_test <- x_test[, 1:6]
 subject_test <- read.table("test\\subject_test.txt")
 test_data <- cbind(subject_test, y_test, x_test)
 setnames(test_data, colHeadings)
@@ -49,6 +49,11 @@ meltdata <- melt(test_and_train, id = c("subject", "activity"))
 
 # cast the melted data to calculate the mean for every subject and activity
 meandata <- cast(meltdata, subject + activity ~ variable, mean)
+
+#retain only the mean and std deviation features; add the subject and activity back
+colretain <- grep(".*mean.*|.*std.*", colHeadings, value = TRUE)
+colretain <- c(colHeadings1, colretain)
+meandata <- meandata[, colretain] 
 
 # write the data into a file in your working directory
 write.table(meandata, "Week4Assignment.txt", row.names = FALSE)
